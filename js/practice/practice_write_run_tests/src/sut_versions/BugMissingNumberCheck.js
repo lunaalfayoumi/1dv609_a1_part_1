@@ -27,7 +27,7 @@ class Password {
     return /\d/.test(text);
   }
 
-  #getPasswordHash() {
+  getPasswordHash() {
     return this.passwordHash;
   }
 
@@ -35,7 +35,7 @@ class Password {
     if (!(other instanceof Password)) {
       throw new Error("Invalid argument");
     }
-    return this.#getPasswordHash() === other.#getPasswordHash();
+    return this.getPasswordHash() === other.getPasswordHash();
   }
 }
 

@@ -22,14 +22,14 @@ class Password {
   }
 
   #isTooShort(pw) {
-    return pw.length < 11;
+    return pw.length < 6;
   }
 
   #containsNumber(text) {
     return /\d/.test(text);
   }
 
-  #getPasswordHash() {
+  getPasswordHash() {
     return this.passwordHash;
   }
 
@@ -37,7 +37,7 @@ class Password {
     if (!(other instanceof Password)) {
       throw new Error("Invalid argument");
     }
-    return this.#getPasswordHash() === other.#getPasswordHash();
+    return this.getPasswordHash() === other.getPasswordHash();
   }
 }
 
