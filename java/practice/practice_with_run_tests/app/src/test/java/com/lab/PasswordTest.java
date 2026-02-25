@@ -112,58 +112,52 @@ public class PasswordTest {
 
     @Test
     void BugToShortPassword_noNumberThrowsException() {
-        assertThrows(Exception.class, () -> new BugToShortPassword("Abcdefghijjj")); // ✅ PASSES
+        assertThrows(Exception.class, () -> new BugToShortPassword("Abcdefghijjj")); //  PASSES
     }
 
-    // =============================================================
     //  T6 – 7-char password should throw (boundary: < 12)
     //  FAILS on: BugVeryShort
-    // =============================================================
 
     @Test
     void BugVeryShort_7charPasswordThrowsException() {
-        assertThrows(Exception.class, () -> new BugVeryShort("Abcdef1")); // ❌ FAILS – allows 7 chars (bug: < 6 instead of < 12)
+        assertThrows(Exception.class, () -> new BugVeryShort("Abcdef1")); //  FAILS – allows 7 chars (bug: < 6 instead of < 12)
     }
 
     @Test
     void BugVeryShort_differentPasswordsAreNotSame() throws Exception {
         BugVeryShort p1 = new BugVeryShort("Abcdefghij12");
         Password     p2 = new Password("Abcdefghij99");
-        assertFalse(p1.isPasswordSame(p2)); // ✅ PASSES
+        assertFalse(p1.isPasswordSame(p2)); //  PASSES
     }
 
     @Test
     void BugVeryShort_noNumberThrowsException() {
-        assertThrows(Exception.class, () -> new BugVeryShort("Abcdefghijjj")); // ✅ PASSES
+        assertThrows(Exception.class, () -> new BugVeryShort("Abcdefghijjj")); //  PASSES
     }
 
-    // =============================================================
     //  T7 – exception message for short password should be "To short password"
     //  FAILS on: BugWrongExceptionMessage
-    // =============================================================
 
     @Test
     void BugWrongExceptionMessage_shortPasswordHasCorrectMessage() {
         Exception ex = assertThrows(Exception.class, () -> new BugWrongExceptionMessage("Short1"));
-        assertEquals("To short password", ex.getMessage()); // ❌ FAILS – bug throws "Wrong message"
+        assertEquals("To short password", ex.getMessage()); //  FAILS – bug throws "Wrong message"
     }
 
     @Test
     void BugWrongExceptionMessage_differentPasswordsAreNotSame() throws Exception {
         BugWrongExceptionMessage p1 = new BugWrongExceptionMessage("Abcdefghij12");
         Password                 p2 = new Password("Abcdefghij99");
-        assertFalse(p1.isPasswordSame(p2)); // ✅ PASSES
+        assertFalse(p1.isPasswordSame(p2)); // PASSES
     }
 
     @Test
     void BugWrongExceptionMessage_noNumberThrowsException() {
-        assertThrows(Exception.class, () -> new BugWrongExceptionMessage("Abcdefghijjj")); // ✅ PASSES
+        assertThrows(Exception.class, () -> new BugWrongExceptionMessage("Abcdefghijjj")); // PASSES
     }
 
-    // =============================================================
     //  T8 – same password string should produce same hash
     //  FAILS on: BugWrongHashingAlgorithm
-    // =============================================================
 
     @Test
     void BugWrongHashingAlgorithm_samePasswordIsSame() throws Exception {
