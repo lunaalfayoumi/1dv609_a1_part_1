@@ -40,9 +40,15 @@ class ExamTest {
     }
 
     @Test
-    void isPassed_shouldThrowException_whenScoreInvalid() {
+    void isPassed_shouldThrowException_whenScoreInvalid100() {
         assertThrows(IllegalArgumentException.class, () -> {
             exam.isPassed(150);
+        });
+    }
+    @Test
+    void isPassed_shouldThrowException_whenScoreInvalidnegative() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            exam.isPassed(-20);
         });
     }
 }
