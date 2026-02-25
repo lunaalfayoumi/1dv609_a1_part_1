@@ -1,0 +1,167 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BugPassesAllTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.lab</a>
+</div>
+
+<h1>Coverage Summary for Class: BugPassesAllTests (com.lab)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BugPassesAllTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.8%
+  </span>
+  <span class="absValue">
+    (15/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.lab;
+&nbsp;
+&nbsp;import java.security.MessageDigest;
+&nbsp;
+&nbsp;/**
+&nbsp; * BugPassesAllTests – a subtly broken Password that passes every test in PasswordTest.
+&nbsp; */
+&nbsp;public class BugPassesAllTests implements IPassword {
+&nbsp;
+&nbsp;  private final String password;
+&nbsp;  private final int passwordHash;
+&nbsp;
+<b class="fc">&nbsp;  public BugPassesAllTests(String password) throws Exception {</b>
+<b class="fc">&nbsp;    String trimmed = password.trim();</b>
+&nbsp;
+<b class="fc">&nbsp;    if (trimmed.length() &lt; 12) {</b>
+<b class="fc">&nbsp;      throw new IllegalArgumentException(&quot;Password must be at least 12 characters long&quot;);</b>
+&nbsp;    }
+<b class="fc">&nbsp;    if (!trimmed.matches(&quot;.*\\d.*&quot;)) {</b>
+<b class="fc">&nbsp;      throw new IllegalArgumentException(&quot;Password must contain at least one number&quot;);</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    this.password = trimmed;</b>
+<b class="fc">&nbsp;    this.passwordHash = simpleHash(trimmed);</b>
+&nbsp;
+&nbsp;  }
+&nbsp;  private int simpleHash(String input) {
+<b class="fc">&nbsp;    int hash = 7;</b>
+<b class="fc">&nbsp;    for (int i = 0; i &lt; input.length(); i++) {</b>
+<b class="fc">&nbsp;      hash = hash * 31 + input.charAt(i);</b>
+&nbsp;    }
+<b class="fc">&nbsp;    return hash;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public int getPasswordHash() {
+<b class="fc">&nbsp;    return this.passwordHash;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public boolean isPasswordSame(IPassword other) {
+&nbsp;    // BUG: compares raw strings case-insensitively instead of hashes.
+&nbsp;    // &quot;ValidPassword1&quot;.equalsIgnoreCase(&quot;validpassword1&quot;) → true  (WRONG)
+&nbsp;    // The test only compares &quot;ValidPassword1&quot; vs &quot;AnotherPassword2&quot; → still false ✅
+<b class="pc">&nbsp;    if (other instanceof BugPassesAllTests) {</b>
+<b class="fc">&nbsp;      return this.password.equalsIgnoreCase(((BugPassesAllTests) other).password);</b>
+&nbsp;    }
+<b class="nc">&nbsp;    return false;</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-02-25 22:43</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BugWrongHashingAlgorithm</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.lab</a>
+</div>
+
+<h1>Coverage Summary for Class: BugWrongHashingAlgorithm (com.lab)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BugWrongHashingAlgorithm</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.lab;
+&nbsp;
+&nbsp;public class BugWrongHashingAlgorithm implements IPassword{
+&nbsp;    protected int passwordHash;
+&nbsp;
+<b class="fc">&nbsp;    public BugWrongHashingAlgorithm(String pw) throws Exception {</b>
+<b class="fc">&nbsp;        String trimmedPW = pw.trim(); // Remove whitespace</b>
+<b class="fc">&nbsp;        if (isToShort(trimmedPW)) {</b>
+<b class="fc">&nbsp;            throw new Exception(&quot;To short password&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (containsNumber(trimmedPW) == false) {</b>
+<b class="fc">&nbsp;            throw new Exception(&quot;Does not contain a number&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        this.passwordHash = simpleHash(trimmedPW);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private int simpleHash(String input) {
+<b class="fc">&nbsp;        int hash = 0;</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; input.length(); i++) {</b>
+<b class="fc">&nbsp;            hash += input.charAt(i);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return hash % 5;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isToShort(String pw) {
+<b class="fc">&nbsp;        return pw.length() &lt; 12;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean containsNumber(String text) {
+<b class="fc">&nbsp;        return text.matches(&quot;.*\\d.*&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getPasswordHash() {
+<b class="fc">&nbsp;        return this.passwordHash;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isPasswordSame(IPassword other) {
+<b class="pc">&nbsp;        return this.passwordHash == other.getPasswordHash();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-02-25 22:43</div>
+</div>
+</body>
+</html>
